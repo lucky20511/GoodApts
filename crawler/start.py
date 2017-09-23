@@ -48,7 +48,7 @@ end   = 38200500
 
 
 
-chromeDriverPath = "/Users/Luckman/Documents/SJSU/Course/2017_Fall/295B/crawler/chromedriver"
+chromeDriverPath = "/Users/Luckman/Documents/SJSU/Course/2017_Fall/295B/project/crawler/chromedriver"
 
 # Output File Name
 # datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
