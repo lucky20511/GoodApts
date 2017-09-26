@@ -12,6 +12,12 @@ except OSError as e:
     if e.errno != errno.EEXIST:
         raise
 
+try:
+    os.makedirs("Data/ZIP")
+except OSError as e:
+    if e.errno != errno.EEXIST:
+        raise
+
 '''
 == Ouput File Format -- Sperate by # == 
 
@@ -28,11 +34,11 @@ Square feet
 Rooms
 Bedrooms
 Bathrooms
-Price(2014-2015) 
-Price(2013-2014) 
-Price(2012-2013) 
-Price(2011-2012) 
-Price(2010-2011) 
+ZIP code
+Median Price(2017) 
+Median $ per Sq. Ft.(2017)
+Value at Median $ per Sq. Ft.(2017)
+
 '''
 
 '''
@@ -43,12 +49,12 @@ Mia      38100001   38150000
 HsunFu   38150001   38200500
 
 '''
-start = 38150373
+start = 38150001
 end   = 38200500
 
+chromeDriverPath = "/Users/Luckman/Documents/Programs/chrome/chromium/src/out/Default/chromedriver"
 
-
-chromeDriverPath = "/Users/Luckman/Documents/SJSU/Course/2017_Fall/295B/project/crawler/chromedriver"
+#chromeDriverPath = "/Users/Luckman/Documents/SJSU/Course/2017_Fall/295B/project/crawler/chromedriver"
 
 # Output File Name
 # datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
@@ -88,10 +94,10 @@ for page_num in range(start,end):
 
 	print(str(page_num) + " ---> ")
 	driver.get("https://www.propertyshark.com/mason/Property/"+str(page_num))
-
+	
 	
 
-	intervalTime = randint(0, 2)
+	intervalTime = randint(1, 1)
 	time.sleep(intervalTime)
 
 	htmlTxt = driver.page_source
@@ -118,12 +124,13 @@ for page_num in range(start,end):
 
 	propertyInfoTable = propertyInfo.findAll('tr')
 	
-	strs = ["" for x in range(1+12+5)]
+	strs = ["" for x in range(1+12+4)]
 	strs[0] = page_num
 
 	for row in propertyInfoTable :
 		if "Property address" in row.text :
-			strs[1] = row.find('td', { 'class' : 'r_align'}).text
+			strs[1] = row.find('td', { 'class' : 'r_align'}).text.replace("San Jose", " San Jose")
+
 
 		elif "Parcel ID" in row.text :
 			strs[2] = row.find('td', { 'class' : 'r_align'}).text
@@ -159,26 +166,45 @@ for page_num in range(start,end):
 			strs[12] = row.find('td', { 'class' : 'r_align'}).text
 
 
-	priceInfoTableRow = soup.find('div', { 'id' : 'nationwide/assessment_history_content'}).findAll('tr')
-	for row in priceInfoTableRow[1:] :
-		priceInfoTableCol = row.findAll('td')
-		#print(priceInfoTableCol[0].text + " " + priceInfoTableCol[2].text)
-		if "2014-2015" in priceInfoTableCol[0].text :
-			strs[13] = priceInfoTableCol[2].text
-		elif "2013-2014" in priceInfoTableCol[0].text :
-			strs[14] = priceInfoTableCol[2].text
-		elif "2012-2013" in priceInfoTableCol[0].text :
-			strs[15] = priceInfoTableCol[2].text
-		elif "2011-2012" in priceInfoTableCol[0].text :
-			strs[16] = priceInfoTableCol[2].text
-		elif "2010-2011" in priceInfoTableCol[0].text :
-			strs[17] = priceInfoTableCol[2].text
+
+	priceInfoTableRow = soup.find('div', { 'id' : 'nationwide/neigh_price_history_content'}).findAll('tr')
+	
+	# get ZIP code
+	strs[13] = strs[1].split(" ")[-1]
+
+	price2017 = "123"
+	idx = 14
+	for row in priceInfoTableRow[1] :
+		for col in row :
+			if "$" in str(col):
+				strs[idx] = str(col)
+				idx = idx + 1
+	
 
 	out_strs = "#".join(map(str, strs))
 	f_ptr = open(outDataFile, 'a')
 	f_ptr.write(out_strs + "\n")
 	f_ptr.close()
 	print(out_strs)
+
+	# output ZIP file
+	outZipFile ="Data/ZIP/"+strs[13]
+	if not os.path.isfile(outZipFile) : 
+
+		ZIP_result = []
+		ZIP_result.append(strs[13])
+		for row in priceInfoTableRow:
+			for col in row :
+				if "td" in str(col) :
+					ZIP_result.append(str(col.text))
+		out_ZIP = "#".join(map(str, ZIP_result))
+
+		f_ptr = open(outZipFile, 'a')
+		f_ptr.write(out_ZIP)
+		f_ptr.close()
+		print(out_ZIP)
+
+
 
 # driver.quit()
 
