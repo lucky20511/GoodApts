@@ -167,7 +167,7 @@ for page_num in range(start,end):
 
 
 	priceInfoTableRow = soup.find('div', { 'id' : 'nationwide/neigh_price_history_content'})
-	if priceInfoTableRow == None:
+	if priceInfoTableRow == None or len(priceInfoTableRow.findAll('tr')) == 0:
 		f_ptr = open(outStatusFile, 'a')
 		f_ptr.write(str(page_num) + "/" + "Incomplete" + "\n")
 		f_ptr.close()
@@ -176,13 +176,14 @@ for page_num in range(start,end):
 
 
 	priceInfoTableRow = soup.find('div', { 'id' : 'nationwide/neigh_price_history_content'}).findAll('tr')
-	
 
 	# get ZIP code
 	strs[13] = strs[1].split(" ")[-1]
 
 	price2017 = "123"
 	idx = 14
+
+
 	for row in priceInfoTableRow[1] :
 		for col in row :
 			if "$" in str(col):
