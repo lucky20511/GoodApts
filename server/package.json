@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "name": "UIC_Cloud",
+  "dependencies": {
+    "body-parser": "^1.10.2",
+    "ejs": "^1.0.0",
+    "express": "^4.11.1",
+    "express-session": "^1.10.1",
+    "http": "0.0.0",
+    "mongoose": "^4.10.6",
+    "morgan": "^1.8.2",
+    "path": "^0.12.7",
+    "request": "^2.81.0"
+  }
+}
