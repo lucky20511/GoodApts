@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+
+</head>
+
+<body>
+    <div class="bedrooms">
+      <h2>Price for different bedrooms</h2>
+      <p></p>
+    </div>
+
+    <svg id="svg1" width="960" height="500"></svg>
+
+    <div class="yearBuilt">
+      <h2>Price for different built year</h2>
+      <p></p>
+    </div>
+
+    <svg id="svg2" width="960" height="500"></svg>
+
+    <div class="squareFeet">
+      <h2>Price for different square feet</h2>
+      <p></p>
+    </div>
+
+    <svg id="svg3" width="960" height="500"></svg>
+
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script>
+
+        var svg = d3.select("#svg1"),
+            margin = {top: 20, right: 20, bottom: 30, left: 50},
+            width = +svg.attr("width") - margin.left - margin.right,
+            height = +svg.attr("height") - margin.top - margin.bottom,
+            g = svg.append("g")
+                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        //var parseTime = d3.timeParse("%d-%b-%y");
+
+        var x = d3.scaleLinear()
+            .rangeRound([0, width]);
+
+        var y = d3.scaleLinear()
+            .rangeRound([height, 0]);
+
+        var line = d3.line()
+            .x(function(d) { return x(d.bedrooms); })
+            .y(function(d) { return y(d.prices); });
+
+        d3.tsv("http://localhost:8000/Desktop/SJSU/295B/code/GoodApts/server/views/data4.tsv", function(d) {
+          d.bedrooms = +d.bedrooms;
+          d.prices = +d.prices;
+          return d;
+        }, function(error, data) {
+          if (error) throw error;
+
+          x.domain(d3.extent(data, function(d) { return d.bedrooms; }));
+          y.domain(d3.extent(data, function(d) { return d.prices; }));
+
+          g.append("g") // draw x axis
+              .attr("transform", "translate(0," + height + ")")
+              .call(d3.axisBottom(x))
+            // .select(".domain")
+            //   .remove();
+
+          g.append("g")  //draw y axis
+              .call(d3.axisLeft(y))
+            .append("text")
+              .attr("fill", "#000")
+              .attr("transform", "rotate(-90)")
+              .attr("y", 6)
+              .attr("dy", "0.71em")
+              .attr("text-anchor", "end")
+              .text("Price (10000$)");
+
+          g.append("path")  // draw line
+              .datum(data)
+              .attr("fill", "none")
+              .attr("stroke", "steelblue")
+              .attr("stroke-linejoin", "round")
+              .attr("stroke-linecap", "round")
+              .attr("stroke-width", 1.5)
+              .attr("d", line);
+        });
+
+    </script>
+</body>
+</html>

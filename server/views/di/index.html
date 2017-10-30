@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>San Jose House Prediction</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      /*#map {
+        height: 100%;
+      }*/
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        text-align: center;
+        height: 100%;
+        margin: 2%;
+        padding: 0;
+      }
+      input[type=text], select {
+        width: 20%;
+        padding: 5px 10px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+
+      input[type=submit] {
+        width: 30%;
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      input[type=submit]:hover {
+        background-color: #45a049;
+      }
+
+        #mapCanvas {
+            width: 100%;
+            height: 100%;
+            float: left;
+        }
+        /*#infoPanel {
+            float: left;
+            margin-left: 10px;
+        }*/
+        #infoPanel div {
+            margin-bottom: 22.5px;
+        }
+    </style>
+
+
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6" style="background-color:lavender;">
+                <form id="searchForm" action="javascript:sendData({test:'ok'})" method="POST">
+                    <h2>Customize you prediction </h2>
+                    <p> Latitude <input id="lat" type="text" name="lat">
+                        Longitude <input id="lng" type="text" name="lng">
+                        Square Feet <input id="square" type="text" name="square">
+                    </p>
+                    <p> Rooms
+                            <select id="rooms" name="rooms">
+                                <option selected="selected">1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                                <option>6</option>
+                                <option>7</option>
+                                <option>8</option>
+                                <option>9</option>
+                                <option>10</option>
+                            </select>
+                        Property Class
+                            <select id="class" name="class">
+                              <option selected="selected">Single Family</option>
+                              <option>Condominium, Townhouse</option>
+                            </select>
+                    </p>
+                    <input type="submit" value="Predict"> <!--onclick="sendData({test:'ok'})"-->
+          	    </form>
+            </div>
+            <div id="infoPanel" class="col-sm-6" style="background-color:lavenderblush;">
+                <h2> Pin Infomation </h2>
+                <b>Marker status:</b>
+                <p id="markerStatus"><i>Click and drag the marker.</i></p>
+                <b>Current position:</b>
+                <div id="info"></div>
+                <b>Closest matching address:</b>
+                <div id="address"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div id="mapCanvas"></div> -->
+
+
+    <script type="text/javascript">
+        // $data = $("form").serialize(); // will return query string
+        // $data = $("form").serializeArray(); // will return array
+
+
+        function sendData() {
+            // var arr = $('searchForm').serializeArray();
+            //document.write(arr);
+
+            // var fo = JSON.stringify($('#searchForm').serializeArray())
+            // document.write(fo);
+
+            var arr = $('#searchForm').serializeArray(), obj = {};
+            for (var i = 0; i < arr.length; ++i)
+                obj[arr[i].name] = arr[i].value;
+
+            document.write(obj['rooms']);
+
+            // jump to the result page
+            // window.location.pathname = "chartResult.html";
+
+            // window.location.href = "chartResult.html";
+        }
+
+
+        // Sending and receiving data in JSON format using POST method
+        function postPrediction(formValues) {
+
+            document.write(formValues);
+
+            // $(function() {
+            //     var update = function() {
+            //         $('#serializearray').text(
+            //             JSON.stringify($('form').serializeArray())
+            //         );
+            //         $('#serialize').text(
+            //             JSON.stringify($('form').serialize())
+            //         );
+            //     };
+            //     update();
+            //     $('form').change(update);
+            // })
+
+            var xhr = new XMLHttpRequest();
+            var url = "url";
+
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader("Content-type", "application/json");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var json = JSON.parse(xhr.responseText);
+                    console.log(json.email + ", " + json.password);
+                }
+            };
+            var data = JSON.stringify({"email": "mail.com", "password": "pass"});
+
+            document.write(xhr.responseText);
+            xhr.send(data);
+        }
+    </script>
+
+
+
+    <br>
+
+    <div id="mapCanvas"></div>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKJsHKXvV7AdMWxqRYcFn5X1r62r1LQ7U"></script>
+    <script type="text/javascript">
+        var geocoder = new google.maps.Geocoder();
+
+        function geocodePosition(pos) {
+            geocoder.geocode({
+                latLng: pos
+            }, function(responses) {
+                if (responses && responses.length > 0) {
+                  updateMarkerAddress(responses[0].formatted_address);
+                } else {
+                  updateMarkerAddress('Cannot determine address at this location.');
+                }
+            });
+        }
+
+        function updateMarkerStatus(str) {
+            document.getElementById('markerStatus').innerHTML = str;
+        }
+
+        function updateMarkerPosition(latLng) {
+            document.getElementById('info').innerHTML = [
+                latLng.lat(),
+                latLng.lng()
+            ].join(', ');
+
+            document.getElementById('lat').value = latLng.lat().toPrecision(9);
+            document.getElementById('lng').value = latLng.lng().toPrecision(9);
+
+        }
+
+        function updateMarkerAddress(str) {
+            document.getElementById('address').innerHTML = str;
+        }
+
+        function initialize() {
+            var latLng = new google.maps.LatLng(37.33939, -121.89496);
+            var map = new google.maps.Map(document.getElementById('mapCanvas'), {
+                zoom: 12,
+                center: latLng,
+                mapTypeId: 'roadmap'
+            });
+            var marker = new google.maps.Marker({
+                position: latLng,
+                title: 'Point',
+                map: map,
+                draggable: true
+            });
+
+            // Update current position info.
+            updateMarkerPosition(latLng);
+            geocodePosition(latLng);
+
+            // Add dragging event listeners.
+            google.maps.event.addListener(marker, 'dragstart', function() {
+                updateMarkerAddress('Dragging...');
+            });
+
+            google.maps.event.addListener(marker, 'drag', function() {
+                updateMarkerStatus('Dragging...');
+                updateMarkerPosition(marker.getPosition());
+            });
+
+            google.maps.event.addListener(marker, 'dragend', function() {
+                updateMarkerStatus('Drag ended');
+                geocodePosition(marker.getPosition());
+            });
+        }
+
+        // Onload handler to fire off the app.
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+</body>
+</html>
