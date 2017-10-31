@@ -4,7 +4,7 @@
   "scripts": {
     "start": "node ./bin/www"
   },
-  "name": "UIC_Cloud",
+  "name": "goodApts",
   "dependencies": {
     "body-parser": "^1.10.2",
     "ejs": "^1.0.0",
