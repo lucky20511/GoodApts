@@ -24,7 +24,7 @@ response:
 }
 ```
 
-- no "property class" in the post body, default to 1 in SVR_rest.py
+- no "property class" in the post body, default to 0(single family) in SVR_rest.py
 
 -----------
 
