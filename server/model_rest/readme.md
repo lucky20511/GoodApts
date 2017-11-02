@@ -1,4 +1,4 @@
-## url, body & response
+## Url, request body & response
 
 ### SVR
 **POST localhost:10001/SVR**
@@ -24,7 +24,7 @@ response:
 }
 ```
 
-- no property class in the post body, default to 1 in SVR_rest.py
+- no "property class" in the post body, default to 1 in SVR_rest.py
 
 -----------
 
