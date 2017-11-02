@@ -29,7 +29,40 @@ response:
 -----------
 
 ### DNN
+**POST localhost:8888/DNN**
+```
+{
+	"Lat":37.305284,
+	"Lng":-121.852713,
+	"Neighborhood":0,
+	"Lot_sq_ft":5000,
+	"Property_class":0,
+	"Year_built":2014,
+	"Square_feet":2829,
+	"Rooms":9,
+	"Bedrooms":4,
+	"Bathrooms":3, 
+	"ZIP_code":95125
+}
+```
 
+response:
+```
+{
+    "Lat": 37.305284,
+    "Lng": -121.852713,
+    "Neighborhood": 0,
+    "Lot_sq_ft": 5000,
+    "Property_class": 0,
+    "Year_built": 2014,
+    "Square_feet": 2829,
+    "Rooms": 9,
+    "Bedrooms": 4,
+    "Bathrooms": 3,
+    "ZIP_code": 95125,
+    "Prediction_price": 1045335
+}
+```
 -----------
 
 ### Random Forest
