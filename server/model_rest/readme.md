@@ -37,4 +37,25 @@ response:
 -----------
 
 ### Bayesian
+**POST localhost:10002/Bay**
+```
+{
+  "lat": 37.3081255,
+  "lng": -121.8942087,
+  "neighborhood": 0.0,
+  "lot_square_feet": 6300.0,
+  "year_built": 1939,
+  "square_feet": 1621,
+  "rooms": 6.0,
+  "bedrooms": 3.0,
+  "bathrooms": 1.0,
+  "median_per_sqft": 713
+}
+```
 
+response:
+```
+{
+    "price": 932245
+}
+```
