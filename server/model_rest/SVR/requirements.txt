@@ -1,0 +1,4 @@
+pickle
+requests
+pandas
+flask
