@@ -24,5 +24,5 @@ def train():
     return jsonify(price = res[0])
 
 if __name__ == '__main__':
-	app.run(host='0.0.0.0', port=1314, debug=True)
+	app.run(host='0.0.0.0', port=10002, debug=True)
 	

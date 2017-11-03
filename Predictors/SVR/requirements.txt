@@ -1,4 +1,6 @@
-pickle
 requests
 pandas
 flask
+numpy
+scipy
+scikit-learn
