@@ -1,0 +1,19 @@
+0.Because I use spark2.1 
+so download Spark from https://spark.apache.org/downloads.html 
+OR use the zip file I put in folder 
+
+AND run setup.py:
+
+cd /“my-spark-2.1-directory”/python/
+python setup.py install
+
+1.Run the restful api for random_forest restful api:
+
+/“path_to_spark”/spark/bin/spark-submit ./RF_Prediction_Rest.py
+
+OR
+
+/“path_to_spark”/spark/bin/spark-submit ./RF_Prediction_Rest.py ./myrfModel_v2/
+
+2. Support all numeric columns in excel sheet, includes:
+['lat', 'lng', 'tax rate area', 'neighborhood', 'lot sq. ft.', 'property class', 'year built','square feet', 'rooms', 'bedrooms', 'bathrooms', 'ZIP code', 'Median Price(2017)', 'Transaction year']
