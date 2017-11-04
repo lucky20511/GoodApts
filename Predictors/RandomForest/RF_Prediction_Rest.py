@@ -18,7 +18,6 @@ filename = default_model_path
 
 def prediction(parameter_list):
     #function
-    sameModel = RandomForestModel.load(sc, filename)
     print "read model success"
     prediction = sameModel.predict(parameter_list)
     return prediction
@@ -42,8 +41,9 @@ def rest_prediction():
 if __name__ == '__main__':
     conf = SparkConf().setAppName(APP_NAME)
     conf = conf.setMaster("local[*]")
-    global sc 
     sc = SparkContext(conf=conf)
+    global sameModel 
+    sameModel = RandomForestModel.load(sc, filename)
     if len(sys.argv) > 1:
         filename = sys.argv[1]#pass model path
     app.run(host='0.0.0.0', port=10003)
