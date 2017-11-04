@@ -17,3 +17,6 @@ OR
 
 2. Support all numeric columns in excel sheet, includes:
 ['lat', 'lng', 'tax rate area', 'neighborhood', 'lot sq. ft.', 'property class', 'year built','square feet', 'rooms', 'bedrooms', 'bathrooms', 'ZIP code', 'Median Price(2017)', 'Transaction year']
+URL for Random forest:
+
+localhost:10002/spark_rf
