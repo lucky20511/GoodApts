@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <!-- <meta name="viewport" content="initial-scale=1.0, user-scalable=no"> -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="public/assets/css/main.css" />
+
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <title>San Jose House Prediction</title>
@@ -18,7 +21,7 @@
       html, body {
         text-align: center;
         height: 100%;
-        margin: 2%;
+        margin: 0%;
         padding: 0;
       }
       input[type=text], select {
@@ -47,7 +50,7 @@
 
         #mapCanvas {
             width: 100%;
-            height: 100%;
+            height: 450px;
             float: left;
         }
         /*#infoPanel {
@@ -56,16 +59,122 @@
         }*/
         #infoPanel div {
             margin-bottom: 22.5px;
+            margin-left: 10px;
         }
     </style>
 
 
 </head>
 <body>
-    <div class="container-fluid">
+    <!-- Scripts -->
+        <script src="public/assets/js/jquery.min.js"></script>
+        <script src="public/assets/js/jquery.scrolly.min.js"></script>
+        <script src="public/assets/js/jquery.scrollex.min.js"></script>
+        <script src="public/assets/js/skel.min.js"></script>
+        <script src="public/assets/js/util.js"></script>
+        <script src="public/assets/js/main.js"></script>
+    <!-- Header -->
+        <!-- <header id="header" class="alt">
+            <div class="logo"><a href="index.html">Transitive <span>by TEMPLATED</span></a></div>
+            <a href="#menu" class="toggle"><span>Menu</span></a>
+        </header> -->
+
+    <!-- Nav -->
+        <!-- <nav id="menu">
+            <ul class="links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="generic.html">Generic</a></li>
+                <li><a href="elements.html">Elements</a></li>
+            </ul>
+        </nav> -->
+
+    <!-- Banner -->
+    <!--
+        To use a video as your background, set data-video to the name of your video without
+        its extension (eg. images/banner). Your video must be available in both .mp4 and .webm
+        formats to work correctly.
+    -->
+    <section id="banner" data-video="../images/Houses">
+        <div class="inner">
+            <h1>GoodApts</h1>
+            <p>Predict houses price with your own demand<br />
+            built with balabala.</p>
+            <a href="#one" class="button special scrolly">Get Started</a>
+        </div>
+    </section>
+
+    <!-- One -->
+        <section id="one" class="wrapper style2">
+            <div class="inner">
+                <div>
+                    <div class="box">
+                        <div class="image fit">
+                            <img src="../images/pic01.jpg" alt="" />
+                        </div>
+                        <div class="content">
+                            <header class="align-center">
+                                <h2>Choose a location</h2>
+                                <p>Try to drag the pin</p>
+                            </header>
+                            <hr />
+                            <div class="inner">
+                                <div id="mapCanvas"></div>
+                            </div>
+
+                            <p> If you decide which location to do the prediction, click "Done". </p>
+                            <div><a href="#two" class="button special scrolly">Done</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Two -->
+        <section id="two" class="wrapper style2">
+            <div class="inner">
+                <div>
+                    <div class="box">
+                        <div class="image fit">
+                            <img src="../images/pic02.jpeg" alt="" />
+                        </div>
+                        <form id="searchForm" action="/predict" method="POST">
+                            <h2>Customize you prediction </h2>
+                            <p> Latitude <input id="lat" type="text" name="lat">
+                                Longitude <input id="lng" type="text" name="lng">
+                                Square Feet <input id="square" type="text" name="square">
+                            </p>
+                            <p> Rooms
+                                    <select id="rooms" name="rooms">
+                                        <option selected="selected">1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                        <option>6</option>
+                                        <option>7</option>
+                                        <option>8</option>
+                                        <option>9</option>
+                                        <option>10</option>
+                                    </select>
+                                <!-- Property Class
+                                    <select id="class" name="class">
+                                      <option selected="selected">Single Family</option>
+                                      <option>Condominium, Townhouse</option>
+                                    </select> -->
+                            </p>
+                            <input type="submit" value="Predict"> <!--onclick="sendData({test:'ok'})"-->
+                  	    </form>
+                        <p>...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+    <!-- <div id="container" class="container-fluid">
         <div class="row">
             <div class="col-sm-6" style="background-color:lavender;">
-                <!-- <form id="searchForm" action="javascript:sendData({test:'ok'})" method="POST"> -->
                 <form id="searchForm" action="/predict" method="POST">
                     <h2>Customize you prediction </h2>
                     <p> Latitude <input id="lat" type="text" name="lat">
@@ -91,7 +200,7 @@
                               <option>Condominium, Townhouse</option>
                             </select>
                     </p>
-                    <input type="submit" value="Predict"> <!--onclick="sendData({test:'ok'})"-->
+                    <input type="submit" value="Predict">
           	    </form>
             </div>
             <div id="infoPanel" class="col-sm-6" style="background-color:lavenderblush;">
@@ -104,15 +213,12 @@
                 <div id="address"></div>
             </div>
         </div>
-    </div>
-
-    <!-- <div id="mapCanvas"></div> -->
+    </div> -->
 
 
     <script type="text/javascript">
         // $data = $("form").serialize(); // will return query string
         // $data = $("form").serializeArray(); // will return array
-
 
         function sendData() {
             // var arr = $('searchForm').serializeArray();
@@ -170,11 +276,9 @@
         }
     </script>
 
-
-
     <br>
 
-    <div id="mapCanvas"></div>
+    <!-- <div id="mapCanvas"></div> -->
     <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKJsHKXvV7AdMWxqRYcFn5X1r62r1LQ7U"></script>
     <script type="text/javascript">
@@ -193,14 +297,14 @@
         }
 
         function updateMarkerStatus(str) {
-            document.getElementById('markerStatus').innerHTML = str;
+            // document.getElementById('markerStatus').innerHTML = str;
         }
 
         function updateMarkerPosition(latLng) {
-            document.getElementById('info').innerHTML = [
-                latLng.lat(),
-                latLng.lng()
-            ].join(', ');
+            // document.getElementById('info').innerHTML = [
+            //     latLng.lat(),
+            //     latLng.lng()
+            // ].join(', ');
 
             document.getElementById('lat').value = latLng.lat().toPrecision(9);
             document.getElementById('lng').value = latLng.lng().toPrecision(9);
@@ -208,7 +312,7 @@
         }
 
         function updateMarkerAddress(str) {
-            document.getElementById('address').innerHTML = str;
+            // document.getElementById('address').innerHTML = str;
         }
 
         function initialize() {

@@ -25,12 +25,13 @@ def svr():
 
         x = pd.DataFrame([[lat, lng, neigh, lot_sqft, 0, year_built, sqft, rooms, beds, bathes, median]])
 
-        # load model
-        filename = 'svr_model.sav'
-        svr_model = pickle.load(open(filename, 'rb'))
+        global svr_model
         price = svr_model.predict(x)
 
         return jsonify(price=int(price[0])), 200
 
 if __name__ == '__main__':
+    # load model
+    filename = 'svr_model.sav'
+    svr_model = pickle.load(open(filename, 'rb'))
     app.run(host='0.0.0.0', port=10001, debug=True)
