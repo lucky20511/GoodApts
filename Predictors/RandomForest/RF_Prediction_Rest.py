@@ -46,6 +46,6 @@ if __name__ == '__main__':
     sc = SparkContext(conf=conf)
     if len(sys.argv) > 1:
         filename = sys.argv[1]#pass model path
-    app.run(host='0.0.0.0', port=10002)
+    app.run(host='0.0.0.0', port=10003)
 
     
