@@ -66,7 +66,7 @@ response:
 -----------
 
 ### Random Forest
-**POST localhost:6666/spark_rf**
+**POST localhost:10003/spark_rf**
 ```
 {
   "lat": 37.297955,
