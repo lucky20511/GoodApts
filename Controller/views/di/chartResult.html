@@ -2,7 +2,21 @@
 <meta charset="utf-8">
 <html>
 <head>
+    <style>
 
+    .bar {
+      fill: steelblue;
+    }
+
+    .bar:hover {
+      fill: brown;
+    }
+
+    .axis--x path {
+      display: none;
+    }
+
+    </style>
 </head>
 
 <body>
@@ -20,6 +34,13 @@
 
     <svg id="svg2" width="960" height="500"></svg>
 
+
+    <div class="model">
+      <h2>Price for different model</h2>
+      <p></p>
+    </div>
+    <svg id="svg3" width="960" height="500"></svg>
+
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script>
 
@@ -29,8 +50,6 @@
             height = +svg.attr("height") - margin.top - margin.bottom,
             g = svg.append("g")
                     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-        //var parseTime = d3.timeParse("%d-%b-%y");
 
         var x = d3.scaleLinear()
             .rangeRound([0, width]);
@@ -57,10 +76,8 @@
         //   return value;     // return the unchanged property value.
         // });
 
-
-
-    //   data = {"1": 93.24, "2": 95.35, "3": 98.84, "4": 96.3, "5": 99.8, "6": 97};
-    //   data = [{"bedrooms":2, "prices":1000},{"bedrooms":2, "prices":1000},{"bedrooms":2, "prices":1000}];
+        //   data = {"1": 93.24, "2": 95.35, "3": 98.84, "4": 96.3, "5": 99.8, "6": 97};
+        //   data = [{"bedrooms":2, "prices":1000},{"bedrooms":2, "prices":1000},{"bedrooms":2, "prices":1000}];
       data = <%-JSON.stringify(result_bed)%>
 
       x.domain(d3.extent(data, function(d) { return d.bedrooms; }));
@@ -147,5 +164,53 @@
         // });
 
     </script>
+
+    <script>
+
+        var svg = d3.select("#svg3"),
+        margin = {top: 20, right: 20, bottom: 30, left: 40},
+        width = +svg.attr("width") - margin.left - margin.right,
+        height = +svg.attr("height") - margin.top - margin.bottom;
+
+        var x = d3.scaleBand().rangeRound([0, width]).padding(0.5),
+        y = d3.scaleLinear().rangeRound([height, 0]);
+
+        var g = svg.append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+        data2 = [{"model": "SVR", "price": 9999}, {"model": "DNN", "price": 8765}, {"model": "Random Forest", "price": 4351}, {"model": "Bayesian", "price": 6342}];
+
+        console.log(data2);
+
+        x.domain(data2.map(function(d) { return d.model; }));
+        y.domain([0, d3.max(data2, function(d) { return d.price; })]);
+
+        g.append("g")
+          .attr("class", "axis axis--x")
+          .attr("transform", "translate(0," + height + ")")
+          .call(d3.axisBottom(x));
+
+        g.append("g")
+          .attr("class", "axis axis--y")
+          .call(d3.axisLeft(y))
+        .append("text")
+          .attr("transform", "rotate(-90)")
+          .attr("y", 6)
+          .attr("dy", "0.71em")
+          .attr("text-anchor", "end")
+          .text("price");
+
+        g.selectAll(".bar")
+        .data(data2)
+        .enter().append("rect")
+          .attr("class", "bar")
+          .attr("x", function(d) { return x(d.model); })
+          .attr("y", function(d) { return y(d.price); })
+          .attr("width", x.bandwidth())
+          .attr("height", function(d) { return height - y(d.price); });
+
+    </script>
+
 </body>
 </html>
