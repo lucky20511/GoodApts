@@ -11,8 +11,8 @@ APP_NAME = "good_apt"
 max_para_number = 14
 #default with 14 None
 parameter_list = [None]*max_para_number
-standard_info_headers = ['lat', 'lng', 'tax rate area', 'neighborhood', 'lot sq. ft.', 'property class', 'year built',
-'square feet', 'rooms', 'bedrooms', 'bathrooms', 'ZIP code', 'Median Price(2017)', 'Transaction year']
+standard_info_headers = ['lat', 'lng', 'tax_rate_area', 'neighborhood', 'lot_sq._ft.', 'property_class', 'year_built',
+'square_feet', 'rooms', 'bedrooms', 'bathrooms', 'zip_code', 'median_price(2017)', 'transaction_year']
 default_model_path = './myrfModel_v2/'
 filename = default_model_path
 
@@ -29,11 +29,12 @@ def spark_rest_info():
 @app.route("/spark_rf", methods = ["POST"])
 def rest_prediction():
     req_post = json.loads(request.data)
+    resp = dict()
     for i in range(max_para_number):
         if standard_info_headers[i] in req_post:
             parameter_list[i] = req_post[standard_info_headers[i]]
+            resp[standard_info_headers[i]] = parameter_list[i]
     
-    resp = dict()
     resp['price'] = prediction(parameter_list)
     return jsonify(resp), 200
 
