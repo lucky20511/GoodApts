@@ -14,21 +14,29 @@ def svr():
 
         lat = req_post['lat']
         lng = req_post['lng']
-        neigh = req_post['neighborhood']
-        lot_sqft = req_post['lot_square_feet']
+        prop = req_post['property_class']
         year_built = req_post['year_built']
         sqft = req_post['square_feet']
-        rooms = req_post['rooms']
         beds = req_post['bedrooms']
         bathes = req_post['bathrooms']
-        median = req_post['median_per_sqft']
+        zCode = req_post['zip_code']
+        tran_year = req_post['transaction_year']
 
-        x = pd.DataFrame([[lat, lng, neigh, lot_sqft, 0, year_built, sqft, rooms, beds, bathes, median]])
+        x = pd.DataFrame([[lat, lng, prop, year_built, sqft, beds, bathes, zCode, tran_year]])
 
         global svr_model
         price = svr_model.predict(x)
 
-        return jsonify(price=int(price[0])), 200
+        return jsonify(lat=lat,
+                        lng=lng,
+                        property_class=prop,
+                        year_built=year_built,
+                        square_feet=sqft,
+                        bedrooms=beds,
+                        bathrooms=bathes,
+                        zip_code=zCode,
+                        transaction_year=tran_year,
+                        prediction_price=int(price[0])), 201
 
 if __name__ == '__main__':
     # load model
