@@ -10,7 +10,7 @@ POST request:
   "year_built":1972,
   "square_feet":1799,
   "bedrooms":4, 
-  "bathrooms:2",
+  "bathrooms":2,
   "zip_code":95131,
   "transaction_year":2017
 }
@@ -25,7 +25,7 @@ response:
   "year_built":1972,
   "square_feet":1799,
   "bedrooms":4, 
-  "bathrooms:2",
+  "bathrooms":2,
   "zip_code":95131,
   "transaction_year":2017,
   "prediction_price": 702263
