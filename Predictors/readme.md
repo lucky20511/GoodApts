@@ -118,7 +118,15 @@ response:
 response:
 ```
 {
-    "price": 528246.19412984
+    "bathrooms": 1.5,
+    "bedrooms": 4,
+    "lat": 37.297955,
+    "lng": -121.812944,
+    "neighborhood": 17,
+    "price": 463015.40135050396,
+    "rooms": 7,
+    "square_feet": 1799,
+    "year_built": 1972
 }
 ```
 -----------
