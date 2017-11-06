@@ -22,7 +22,7 @@ app = Flask(__name__)
 # ]
 
 #Continuous base columns.
-lat = tf.feature_column.numeric_column("lat")
+Lat = tf.feature_column.numeric_column("Lat")
 Lng = tf.feature_column.numeric_column("Lng")
 Tax_rate_area = tf.feature_column.numeric_column("Tax_rate_area")
 Neighborhood = tf.feature_column.numeric_column("Neighborhood")
@@ -34,21 +34,30 @@ Rooms = tf.feature_column.numeric_column("Rooms")
 Bedrooms = tf.feature_column.numeric_column("Bedrooms")
 Bathrooms = tf.feature_column.numeric_column("Bathrooms")
 ZIP_code = tf.feature_column.numeric_column("ZIP_code")
+Transaction_year = tf.feature_column.numeric_column("Transaction_year")
+Transaction_price = tf.feature_column.numeric_column("Transaction_price")
 
-
+linear_columns = [
+    # Lat,
+    # Lng,
+    Year_built,
+    Transaction_year
+]
 
 deep_columns = [
-    Neighborhood,
-    Lot_sq_ft,
+    Lat,
+    Lng,
+    #Neighborhood,
+    # Lot_sq_ft, # No
     Property_class,
     Year_built,
     Square_feet,
-    Rooms,
-    Bedrooms,
+    # Rooms, # No
+    Bedrooms, 
     Bathrooms,
-    ZIP_code
+    ZIP_code,
+    Transaction_year
 ]
-
 
 def build_estimator(model_dir, model_type):
   
@@ -72,7 +81,7 @@ def input_fn_predict(dataframe):
 
 
 def predict(m, input_data):
-  df = pd.DataFrame(input_data, columns=['Neighborhood','Lot_sq_ft','Property_class','Year_built','Square_feet','Rooms','Bedrooms','Bathrooms', 'ZIP_code'])
+  df = pd.DataFrame(input_data, columns=['Lat','Lng','Property_class','Year_built','Square_feet','Bedrooms','Bathrooms', 'ZIP_code', 'Transaction_year'])
 
   predict_results = m.predict(input_fn=input_fn_predict(df))
 
@@ -97,17 +106,18 @@ def dnn_predict():
   print(predict_parameters)
   # need add lat and lng
 
-  Neighborhood_val = predict_parameters["Neighborhood"]
-  Lot_sq_ft_val = predict_parameters["Lot_sq_ft"] 
-  Property_class_val = predict_parameters["Property_class"]
-  Year_built_val = predict_parameters["Year_built"]
-  Square_feet_val = predict_parameters["Square_feet"]
-  Rooms_val = predict_parameters["Rooms"]
-  Bedrooms_val = predict_parameters["Bedrooms"]
-  Bathrooms_val = predict_parameters["Bathrooms"]
-  ZIP_code_val = predict_parameters["ZIP_code"]
+  lat = predict_parameters["lat"]
+  lng = predict_parameters["lng"] 
+  property_class = predict_parameters["property_class"]
+  year_built = predict_parameters["year_built"]
+  square_feet = predict_parameters["square_feet"]
+  bedrooms = predict_parameters["bedrooms"]
+  bathrooms = predict_parameters["bathrooms"]
+  zip_code = predict_parameters["zip_code"]
+  transaction_year = predict_parameters["transaction_year"]
 
-  intput_list = [[Neighborhood_val,Lot_sq_ft_val,Property_class_val,Year_built_val,Square_feet_val,Rooms_val,Bedrooms_val,Bathrooms_val,ZIP_code_val]]
+
+  intput_list = [[lat,lng, property_class, year_built, square_feet, bedrooms, bathrooms, zip_code, transaction_year]]
   price = predict(predictor, intput_list)
   print(price)
 
