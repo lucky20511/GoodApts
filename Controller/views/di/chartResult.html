@@ -179,7 +179,7 @@
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 
-        data2 = [{"model": "SVR", "price": 9999}, {"model": "DNN", "price": 8765}, {"model": "Random Forest", "price": 4351}, {"model": "Bayesian", "price": 6342}];
+        data2 = [{"model": "SVR", "price": 99999}, {"model": "DNN", "price": 8765}, {"model": "Random Forest", "price": 8888}, {"model": "Bayesian", "price": 8342}];
 
         console.log(data2);
 
@@ -193,7 +193,7 @@
 
         g.append("g")
           .attr("class", "axis axis--y")
-          .call(d3.axisLeft(y))
+          .call(d3.axisLeft(y).ticks(10, "s"))
         .append("text")
           .attr("transform", "rotate(-90)")
           .attr("y", 6)

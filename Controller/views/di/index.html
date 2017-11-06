@@ -144,8 +144,8 @@
                                 Longitude <input id="lng" type="text" name="lng">
                                 Square Feet <input id="square" type="text" name="square">
                             </p>
-                            <p> Rooms
-                                    <select id="rooms" name="rooms">
+                            <p> Bedrooms
+                                    <select id="bedrooms" name="bedrooms">
                                         <option selected="selected">1</option>
                                         <option>2</option>
                                         <option>3</option>
@@ -157,15 +157,39 @@
                                         <option>9</option>
                                         <option>10</option>
                                     </select>
-                                <!-- Property Class
-                                    <select id="class" name="class">
-                                      <option selected="selected">Single Family</option>
-                                      <option>Condominium, Townhouse</option>
-                                    </select> -->
+
+                                Bathrooms
+                                    <select id="bathrooms" name="bathrooms">
+                                        <option selected="selected">1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                        <option>6</option>
+                                        <option>7</option>
+                                        <option>8</option>
+                                        <option>9</option>
+                                        <option>10</option>
+                                    </select>
+                                Built Year<input id="builtYear" type="text" name="year_built">
+                                Built Year<input id="builtYear" type="text" name="year_built">
                             </p>
-                            <input type="submit" value="Predict"> <!--onclick="sendData({test:'ok'})"-->
+
+                            <p>
+                                <input type="hidden" id="zip_code" name="zip_code">
+                                Property Class
+                                <select id="class" name="property_class">
+                                  <option selected="selected" value="0">Single Family</option>
+                                  <option value="7">Condominium, Townhouse</option>
+                                </select>
+
+                                Prediction Year <input id="pYear" type="text" name="transaction_year">
+                            </p>
+                            <input type="submit" value="Predict">
                   	    </form>
-                        <p>...</p>
+                        <p></p>
+
+
                     </div>
                 </div>
             </div>
@@ -313,6 +337,9 @@
 
         function updateMarkerAddress(str) {
             console.log(str);
+            zip = str.substring(str.lastIndexOf("CA")+3, str.lastIndexOf("USA")-2);
+            console.log(zip)
+            document.getElementById('zip_code').value = zip;
             // document.getElementById('address').innerHTML = str;
         }
 
