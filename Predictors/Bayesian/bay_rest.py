@@ -20,7 +20,8 @@ def train():
     transaction_year = float(p_body['transaction_year'])  
 
     res = loaded_model.predict([[lat, lng, property_class, year_built, square_feet, bedrooms, bathrooms, zip_code, transaction_year]])
-    return jsonify(price = res[0])
+    return jsonify(lat = lat, lng = lng, property_class = property_class, year_built = year_built, square_feet = square_feet, 
+                    bedrooms = bedrooms, bathrooms = bathrooms, zip_code = zip_code, transaction_year = transaction_year, price = res[0])
 
 if __name__ == '__main__':
 
