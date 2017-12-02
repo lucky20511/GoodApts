@@ -94,7 +94,8 @@ def predict(m, input_data):
 
 
 
-predictor = build_estimator("model/", "wide_n_deep")
+predictor = build_estimator("model_f_new/", "wide_n_deep")
+# predictor = build_estimator("model/", "wide_n_deep")
 
 ########  API  #############
 
