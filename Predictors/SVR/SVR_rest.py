@@ -40,6 +40,6 @@ def svr():
 
 if __name__ == '__main__':
     # load model
-    filename = 'svr_model.sav'
+    filename = 'svr_model_12k.sav'
     svr_model = pickle.load(open(filename, 'rb'))
     app.run(host='0.0.0.0', port=10001, debug=True)

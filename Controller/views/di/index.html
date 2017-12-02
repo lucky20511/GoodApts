@@ -142,7 +142,7 @@
                             <h2>Customize you prediction </h2>
                             <p> Latitude <input id="lat" type="text" name="lat">
                                 Longitude <input id="lng" type="text" name="lng">
-                                Square Feet <input id="square" type="text" name="square_feet">
+                                Square Feet <input id="square" type="text" name="square" required pattern="[1-9][0-9]{2,}" title="please provide square feet bigger than 100">
                             </p>
                             <p> Bedrooms
                                     <select id="bedrooms" name="bedrooms">
@@ -171,7 +171,8 @@
                                         <option>9</option>
                                         <option>10</option>
                                     </select>
-                                Built Year<input id="builtYear" type="text" name="year_built">
+
+                                Built Year<input id="builtYear" type="text" name="year_built" required pattern="(18|19)[0-9]{2}|200[0-9]{1}|201[0-7]{1}" title="please provide valid year after 1800 and before now">
                             </p>
 
                             <p>
@@ -182,7 +183,7 @@
                                   <option value="7">Condominium, Townhouse</option>
                                 </select>
 
-                                Prediction Year <input id="pYear" type="text" name="transaction_year">
+                                Prediction Year <input id="pYear" type="text" name="transaction_year" required pattern="20[0-9]{2}" title="please provide year after 2000">
                             </p>
                             <input type="submit" value="Predict">
                   	    </form>
