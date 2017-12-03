@@ -1,6 +1,5 @@
-0.Because I use spark2.1 
+0.Because I use spark2.2 
 so download Spark from https://spark.apache.org/downloads.html 
-OR use the zip file I put in folder 
 
 AND run setup.py:
 
