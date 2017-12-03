@@ -3,7 +3,7 @@ import pickle
 from flask import Flask, request, Response, json
 from flask import jsonify
 
-loaded_model = pickle.load(open('trained_model.sav', 'rb'))
+loaded_model = pickle.load(open('trained_model_ver2.sav', 'rb'))
 app = Flask(__name__)
 
 @app.route('/Bay', methods = ['POST'])
