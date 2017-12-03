@@ -8,12 +8,11 @@ from pyspark.mllib.util import MLUtils
 
 app = Flask(__name__)
 APP_NAME = "good_apt"
-max_para_number = 14
+max_para_number = 10
 #default with 14 None
 parameter_list = [None]*max_para_number
-standard_info_headers = ['lat', 'lng', 'tax_rate_area', 'neighborhood', 'lot_sq._ft.', 'property_class', 'year_built',
-'square_feet', 'rooms', 'bedrooms', 'bathrooms', 'zip_code', 'median_price(2017)', 'transaction_year']
-default_model_path = './myrfModel_v2/'
+standard_info_headers = ['_c0', 'lat', 'lng', 'property_class', 'year_built', 'square_feet', 'bedrooms', 'bathrooms', 'zip_code', 'transaction_year']
+default_model_path = './myrfModel_v3/'
 filename = default_model_path
 
 def prediction(parameter_list):
