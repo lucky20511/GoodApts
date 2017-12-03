@@ -107,28 +107,28 @@ response:
 {
   "lat": 37.297955,
   "lng": -121.812944,
-  "neighborhood": 17,
-  "lot_square_feet": 8140,
-  "year_built": 1972,
-  "square_feet": 1799,
-  "rooms": 7.0,
+  "property_class": 0,
+  "year_built": 1900,
+  "square_feet": 1327,
   "bedrooms": 4.0,
-  "bathrooms": 1.5,
-  "median_per_sqft": 455
+  "bathrooms": 2.0,
+  "zip_code": 95125, 
+  "transaction_year":2015
 }
 ```
 response:
 ```
 {
-    "bathrooms": 1.5,
-    "bedrooms": 4,
-    "lat": 37.297955,
-    "lng": -121.812944,
-    "neighborhood": 17,
-    "price": 463015.40135050396,
-    "rooms": 7,
-    "square_feet": 1799,
-    "year_built": 1972
+  "bathrooms": 2,
+  "bedrooms": 4,
+  "lat": 37.297955,
+  "lng": -121.812944,
+  "price": 563276.8015923777,
+  "property_class": 0,
+  "square_feet": 1327,
+  "transaction_year": 2015,
+  "year_built": 1900,
+  "zip_code": 95125
 }
 ```
 -----------
